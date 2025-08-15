@@ -1,13 +1,16 @@
 import { View, Text , StyleSheet } from 'react-native'
-import React from 'react'
-
+import React , {useState} from 'react'
+import { router } from 'expo-router';
+import { Channel, 
+  ChannelList ,
+  MessageList,
+  MessageInput} from 'stream-chat-expo';
+// import {Channel as ChannelType , StreamChat , MessageList} from 'stream-chat';
 const MainTabScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Text>MainTabScreen</Text>
-    </View>
-  )
-} 
+  const [channel , setChannel] = useState();
+ 
+  return <ChannelList onSelect={(channel)=> router.push(`/channel/${channel.cid}`)}/>;
+};
 
 const styles = StyleSheet.create({
   container: {
