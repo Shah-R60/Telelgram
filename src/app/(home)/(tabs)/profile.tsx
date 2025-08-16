@@ -13,6 +13,7 @@ export default function Account() {
   const [username, setUsername] = useState('')
   const [website, setWebsite] = useState('')
   const [avatarUrl, setAvatarUrl] = useState('')
+  console.log('/tab/profile page')
 
   useEffect(() => {
     if (session) getProfile()
