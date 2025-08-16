@@ -4,6 +4,8 @@ import { StyleSheet, View, Alert } from 'react-native'
 import { Button, Input } from 'react-native-elements'
 import { Session } from '@supabase/supabase-js'
 import { useAuth } from '../../providers/AuthProvider'
+import Avatar from '../../../components/Avatar'
+import { ScrollView } from 'react-native-gesture-handler'
 export default function Account() {
   const { session } = useAuth();
   const [loading, setLoading] = useState(true)
@@ -84,7 +86,20 @@ export default function Account() {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.avatarContainer}>
+          <View>
+            <Avatar
+              size={200}
+            url={avatarUrl}
+            onUpload={(url: string) => {
+              setAvatarUrl(url)
+              updateProfile({ username, website, avatar_url: url , full_name: fullName })
+            }}
+          />
+        </View>
+      </View>
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Input label="Email" value={session?.user?.email} disabled />
       </View>
@@ -110,6 +125,7 @@ export default function Account() {
         <Button title="Sign Out" onPress={() => supabase.auth.signOut()} />
       </View>
     </View>
+    </ScrollView>
   )
 }
 
@@ -125,5 +141,10 @@ const styles = StyleSheet.create({
   },
   mt20: {
     marginTop: 20,
+  },
+  avatarContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
   },
 })
