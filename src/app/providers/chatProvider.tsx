@@ -29,6 +29,8 @@ const ChatProvider = ({ children }: PropsWithChildren) => {
 
       
       try {
+
+        // const defaultAvatar = "https://avatar.iran.liara.run/public/boy"
         console.log('Connecting user:', profile.id, profile.full_name, profile.avatar_url);
         const imageUrl = profile.avatar_url
           ? supabase.storage.from('avatars').getPublicUrl(profile.avatar_url).data.publicUrl
@@ -59,7 +61,7 @@ const ChatProvider = ({ children }: PropsWithChildren) => {
 
     return () => {
       if (didConnect) {
-        // client.disconnectUser();
+        client.disconnectUser();
       }
       setIsReady(false);
     }

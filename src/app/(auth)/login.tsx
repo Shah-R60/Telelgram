@@ -51,8 +51,6 @@ export default function Auth() {
 
       if (error) {
         alert('Error signing up: ' + error.message)
-      } else {
-        alert('Check your email for verification!')
       }
     }
     catch (error) {
