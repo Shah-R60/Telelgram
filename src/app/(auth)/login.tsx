@@ -22,29 +22,48 @@ export default function Auth() {
 
   async function signInWithEmail() {
     setLoading(true)
-    const { error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
-    })
-
-    if (error) Alert.alert(error.message)
-    setLoading(false)
+    try {
+      const { error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
+      })
+      if (error) Alert.alert(error.message)
+      setLoading(false)
+    }
+    catch (error) {
+      alert('Error signing in: ' + error.message);
+    }
+    finally {
+      setLoading(false)
+    }
   }
 
   async function signUpWithEmail() {
     setLoading(true)
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-    })
+    try {
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.signUp({
+        email: email,
+        password: password,
+      })
 
-    if (error) Alert.alert(error.message)
-    if (!session) Alert.alert('Please check your inbox for email verification!')
-    setLoading(false)
+      if (error) {
+        alert('Error signing up: ' + error.message)
+      } else {
+        alert('Check your email for verification!')
+      }
+    }
+    catch (error) {
+      alert('Error signing up: ' + error.message)
+    }
+    finally {
+      setLoading(false)
+    }
   }
+
+
 
   return (
     <View style={styles.container}>

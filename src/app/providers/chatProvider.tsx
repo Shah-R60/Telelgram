@@ -13,53 +13,70 @@ console.log("API Key:", API_KEY);
 const client = StreamChat.getInstance(API_KEY);
 
 
-const ChatProvider = ({children}: PropsWithChildren) => {
-const [isReady, setIsReady] = useState(false);
+const ChatProvider = ({ children }: PropsWithChildren) => {
+  const [isReady, setIsReady] = useState(false);
 
-const {profile}  = useAuth();
-// console.log(user);
+  const { profile } = useAuth();
+  // console.log(user);
 
-  useEffect(()=>{
+  useEffect(() => {
 
-    if(!profile)
-    {
-      return ;
+      let didConnect = false; 
+    if (!profile) {
+      return;
     }
-    const connect = async()=>{
-                await client.connectUser(
-            {
-              id: profile.id,
-              name: profile.full_name,
-              image:supabase.storage.from('avatars').getPublicUrl(profile.avatar_url).data.publicUrl
-            },
-            client.devToken(profile.id)
-          );
-          setIsReady(true);
+    const connect = async () => {
+
+      
+      try {
+        console.log('Connecting user:', profile.id, profile.full_name, profile.avatar_url);
+        const imageUrl = profile.avatar_url
+          ? supabase.storage.from('avatars').getPublicUrl(profile.avatar_url).data.publicUrl
+          : undefined; // Pass undefined if no avatar
+
+        await client.connectUser(
+          {
+            id: profile.id,
+            // 2. Provide a fallback for the name
+            name: profile.full_name || 'New User',
+            image: imageUrl,
+          },
+
+          client.devToken(profile.id)
+        );
+        didConnect = true; 
+        setIsReady(true);
+
+      }
+      catch (error) {
+        // setIsReady(true);
+        console.error('Error connecting user:', error);
+      }
+
     };
-    
+
     connect();
 
-    return ()=>{
+    return () => {
+      if (didConnect) {
         // client.disconnectUser();
-        if (isReady) {
-        client.disconnectUser();
       }
-        setIsReady(false);
+      setIsReady(false);
     }
   }, [profile?.id]);
 
   // Show loading while connecting
   if (!isReady) {
-    return <ActivityIndicator size="large" style={{ flex: 1, justifyContent: 'center' ,alignContent: 'center' }} />;
+    return <ActivityIndicator size="large" style={{ flex: 1, justifyContent: 'center', alignContent: 'center' }} />;
   }
 
   return (
-    
-        <OverlayProvider>
-            <Chat client={client}>
-                {children}
-            </Chat>
-        </OverlayProvider>
+
+    <OverlayProvider>
+      <Chat client={client}>
+        {children}
+      </Chat>
+    </OverlayProvider>
   )
 }
 

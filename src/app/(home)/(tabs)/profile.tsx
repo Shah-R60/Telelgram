@@ -90,16 +90,16 @@ export default function Account() {
     <ScrollView>
       <View style={styles.container}>
         <View style={styles.avatarContainer}>
-          <View>
+          <View >
             <Avatar
               size={200}
-            url={avatarUrl}
-            onUpload={(url: string) => {
-              setAvatarUrl(url)
-              updateProfile({ username, website, avatar_url: url , full_name: fullName })
-            }}
-          />
-        </View>
+              url={avatarUrl}
+              onUpload={(url: string) => {
+                setAvatarUrl(url)
+                updateProfile({ username, website, avatar_url: url, full_name: fullName })
+              }}
+            />
+          </View>
       </View>
       <View style={[styles.verticallySpaced, styles.mt20]}>
         <Input label="Email" value={session?.user?.email} disabled />
@@ -147,5 +147,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,
+    borderRadius: '50%',
   },
 })

@@ -15,8 +15,12 @@ const ChannelScreen = () => {
 
   React.useEffect(() => {
     const fetchChannel = async () => {
-      const channel = await client.queryChannels({cid});
-      setChannel(channel[0]);
+      try {
+        const channel = await client.queryChannels({cid});
+        setChannel(channel[0]);
+      } catch (error) {
+        console.error('Error fetching channel:', error);
+      }
     };
 
     fetchChannel();

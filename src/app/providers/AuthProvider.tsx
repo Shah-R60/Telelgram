@@ -29,20 +29,21 @@ const AuthProvider = ({children}:PropsWithChildren) => {
       }
 
       const fetchProfile = async () => {
-       
-      let { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', session.user.id)
-        .single();
+       try{
+         const { data, error } = await supabase
+           .from('profiles')
+           .select('*')
+           .eq('id', session.user.id)
+           .single();
 
-        if(data) {
-          setProfile(data);
-        }
-        if (error) {
-          console.error('Error fetching profile:', error);
-          return;
-        }
+         if(data){
+           setProfile(data);
+         }
+       }
+       catch (error) {
+         console.error('Error fetching profile:', error);
+       }
+      
       };
 
       fetchProfile();
