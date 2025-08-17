@@ -2,6 +2,7 @@ import { View, Text, FlatList } from 'react-native'
 import React, { useEffect } from 'react'
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../providers/AuthProvider';
+import UserListItem from '../../components/UserLIstItem';
 
 const UserScreen = () => {
     const [Users, setUser] = React.useState([]);
@@ -31,8 +32,8 @@ const UserScreen = () => {
         <FlatList
             data={Users}
             renderItem={({ item }) => (
-                <View style={{ padding: 12, borderBottomWidth: 1, borderBottomColor: '#ff0f0fff' }}>
-                    <Text>{item.full_name}</Text>
+                <View >
+                    <UserListItem user={item} />
                 </View>
             )}
         />
