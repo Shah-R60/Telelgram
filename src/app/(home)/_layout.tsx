@@ -1,7 +1,8 @@
 import { Slot, Stack } from 'expo-router';
-import ChatProvider from '../providers/chatProvider';
+import ChatProvider from '../providers/chatProvider.tsx';
 import { Redirect } from 'expo-router';
-import { useAuth } from '../providers/AuthProvider';
+import { useAuth } from '../providers/AuthProvider.tsx';
+import React from "react";
 export default function HomeLayout() {
    const { user } = useAuth();
   

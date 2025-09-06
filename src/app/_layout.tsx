@@ -1,6 +1,7 @@
 import {Stack, Slot } from 'expo-router';
 import { GestureHandlerRootView} from 'react-native-gesture-handler'
-import AuthProvider from './providers/AuthProvider';
+import React from "react";
+import AuthProvider from './providers/AuthProvider.tsx';
 export default function RootLayout() {
   return (
     <GestureHandlerRootView>

@@ -1,5 +1,6 @@
 import {Tabs } from 'expo-router';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import React from "react";
 
 export default function TabsNavigator() {
     return (

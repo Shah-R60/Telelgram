@@ -1,15 +1,15 @@
-import { View, ActivityIndicator,Text } from 'react-native'
+import { ActivityIndicator, KeyboardAvoidingView, Platform } from 'react-native'
 import React , {useState} from 'react'
 import { useLocalSearchParams } from 'expo-router'
-import {Channel as ChannelType, useChatContext} from 'stream-chat-expo';  
+import { useChatContext} from 'stream-chat-expo';  
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Channel, 
-  ChannelList ,
   MessageList,
   MessageInput} from 'stream-chat-expo';
+import { Channel as StreamChannel } from 'stream-chat';
 const ChannelScreen = () => {
 
-  const [channel, setChannel] = useState<ChannelType | null>(null);
+  const [channel, setChannel] = useState<StreamChannel | null>(null);
   const {cid} = useLocalSearchParams<{cid: string}>();
   const {client} = useChatContext();
 
@@ -30,12 +30,18 @@ const ChannelScreen = () => {
     return <ActivityIndicator />;
   }
   return (
-    <Channel channel={channel}>
-      <MessageList />
-      <SafeAreaView edges={['bottom']}>
-        <MessageInput />
+    <KeyboardAvoidingView 
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
+    >
+      <SafeAreaView style={{ flex: 1 }}>
+        <Channel channel={channel}>
+          <MessageList />
+          <MessageInput />
+        </Channel>
       </SafeAreaView>
-      </Channel>
+    </KeyboardAvoidingView>
   )
 }
 

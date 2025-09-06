@@ -2,7 +2,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import { Link, router, Stack } from 'expo-router';
 import { ChannelList } from 'stream-chat-expo';
-import { useAuth } from '../../providers/AuthProvider';
+import { useAuth } from '../../providers/AuthProvider.tsx';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
 const MainTabScreen = () => {
