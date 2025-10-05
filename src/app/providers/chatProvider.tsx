@@ -29,6 +29,9 @@ const ChatProvider = ({ children }: PropsWithChildren) => {
       return;
     }
     const connect = async () => {
+
+      console.log('Connecting user to chat client:', profile.id);
+      console.log(await tokenProvider());
       try {
         const imageUrl = profile.avatar_url
           ? supabase.storage.from('avatars').getPublicUrl(profile.avatar_url).data.publicUrl
