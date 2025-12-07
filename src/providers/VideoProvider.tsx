@@ -1,10 +1,13 @@
-import { View, Text, ActivityIndicator } from 'react-native'
-import React, { PropsWithChildren, useEffect, useState } from 'react'
-import { tokenProvider } from '../../utils/TokenProvider.tsx';
-import { StreamVideo, StreamVideoClient } from '@stream-io/video-react-native-sdk';
-import { useAuth } from './AuthProvider.tsx';
-import { supabase } from '../../lib/supabase.ts';
-// import process from "node:process";
+import {
+  StreamVideoClient,
+  StreamVideo,
+} from '@stream-io/video-react-native-sdk';
+import { PropsWithChildren, useEffect, useState } from 'react';
+import { ActivityIndicator, View } from 'react-native';
+import { tokenProvider } from '../utils/TokenProvider';
+import { useAuth } from './AuthProvider';
+import { supabase } from '../lib/supabase';
+
 const apiKey = process.env.EXPO_PUBLIC_STREAM_API_KEY;
 
 export default function VideoProvider({ children }: PropsWithChildren) {
@@ -19,14 +22,11 @@ export default function VideoProvider({ children }: PropsWithChildren) {
     }
 
     const initVideoClient = async () => {
-      const imageUrl = profile.avatar_url
-        ? supabase.storage.from('avatars').getPublicUrl(profile.avatar_url).data.publicUrl
-        : undefined;
-
       const user = {
         id: profile.id,
-        name: profile.full_name || 'Anonymous User',
-        image: imageUrl,
+        name: profile.full_name,
+        image: supabase.storage.from('avatars').getPublicUrl(profile.avatar_url)
+          .data.publicUrl,
       };
       const client = new StreamVideoClient({ apiKey, user, tokenProvider });
       setVideoClient(client);

@@ -3,9 +3,9 @@ import { useEffect, useState, PropsWithChildren } from 'react';
 import { StreamChat } from "stream-chat";
 import { ActivityIndicator } from 'react-native';
 import { Chat, OverlayProvider } from "stream-chat-expo";
-import { useAuth } from './AuthProvider.tsx';
-import { supabase } from '../../lib/supabase.ts';
-import { tokenProvider } from '../../utils/TokenProvider.tsx';
+import { useAuth } from './AuthProvider.js';
+import { supabase } from '../lib/supabase.js';
+import { tokenProvider } from '../utils/TokenProvider.js';
 import React from "react";
 // Use the API key directly for now to test
 const API_KEY = process.env.EXPO_PUBLIC_STREAM_API_KEY;

@@ -1,7 +1,7 @@
 import { View, Text, FlatList } from 'react-native'
 import React, { useEffect } from 'react'
 import { supabase } from '../../lib/supabase.ts';
-import { useAuth } from '../providers/AuthProvider.tsx';
+import { useAuth } from '../../providers/AuthProvider.js';
 import UserListItem from '../../components/UserLIstItem.tsx';
 
 const UserScreen = () => {
