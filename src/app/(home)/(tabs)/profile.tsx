@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
-import { supabase } from '../../../lib/supabase.ts'
+import { supabase } from '../../../lib/supabase'
 import { StyleSheet, View, Alert } from 'react-native'
 import { Button, Input } from 'react-native-elements'
 import { Session } from '@supabase/supabase-js'
-import { useAuth } from '../../../providers/AuthProvider.js'
-import Avatar from '../../../components/Avatar.tsx'
+import { useAuth } from '../../../providers/AuthProvider'
+import Avatar from '../../../components/Avatar'
 import { ScrollView } from 'react-native-gesture-handler'
 import React from 'react'
 export default function Account() {

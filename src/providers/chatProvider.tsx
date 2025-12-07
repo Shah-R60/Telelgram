@@ -3,9 +3,9 @@ import { useEffect, useState, PropsWithChildren } from 'react';
 import { StreamChat } from "stream-chat";
 import { ActivityIndicator } from 'react-native';
 import { Chat, OverlayProvider } from "stream-chat-expo";
-import { useAuth } from './AuthProvider.js';
-import { supabase } from '../lib/supabase.js';
-import { tokenProvider } from '../utils/TokenProvider.js';
+import { useAuth } from './AuthProvider';
+import { supabase } from '../lib/supabase';
+import { tokenProvider } from '../utils/TokenProvider';
 import React from "react";
 // Use the API key directly for now to test
 const API_KEY = process.env.EXPO_PUBLIC_STREAM_API_KEY;
@@ -31,8 +31,11 @@ const ChatProvider = ({ children }: PropsWithChildren) => {
     const connect = async () => {
 
       console.log('Connecting user to chat client:', profile.id);
-      console.log(await tokenProvider());
       try {
+        // Test token provider first
+        const token = await tokenProvider();
+        console.log('Token received successfully');
+        
         const imageUrl = profile.avatar_url
           ? supabase.storage.from('avatars').getPublicUrl(profile.avatar_url).data.publicUrl
           : undefined; 
@@ -50,8 +53,13 @@ const ChatProvider = ({ children }: PropsWithChildren) => {
 
       }
       catch (error) {
-        // setIsReady(true);
-        console.error('Error connecting user:', error);
+        console.error('❌ Error connecting user to Stream Chat:', error);
+        console.error('This usually means:');
+        console.error('1. Network connection issue (cannot reach Supabase/Stream)');
+        console.error('2. Supabase Edge Function not deployed or not working');
+        console.error('3. Invalid Stream API credentials');
+        // Still set ready to true so app doesn't hang, but chat won't work
+        setIsReady(true);
       }
 
     };

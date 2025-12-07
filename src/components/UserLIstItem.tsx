@@ -1,7 +1,7 @@
 import { View, Text , Pressable } from 'react-native'
 import React from 'react'
 import { useChatContext } from 'stream-chat-expo';
-import { useAuth } from '../providers/AuthProvider.js';
+import { useAuth } from '../providers/AuthProvider';
 import { router } from 'expo-router';
 
 const UserListItem = ({ user }) => {

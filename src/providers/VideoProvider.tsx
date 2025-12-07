@@ -22,14 +22,20 @@ export default function VideoProvider({ children }: PropsWithChildren) {
     }
 
     const initVideoClient = async () => {
-      const user = {
-        id: profile.id,
-        name: profile.full_name,
-        image: supabase.storage.from('avatars').getPublicUrl(profile.avatar_url)
-          .data.publicUrl,
-      };
-      const client = new StreamVideoClient({ apiKey, user, tokenProvider });
-      setVideoClient(client);
+      try {
+        const user = {
+          id: profile.id,
+          name: profile.full_name,
+          image: profile.avatar_url 
+            ? supabase.storage.from('avatars').getPublicUrl(profile.avatar_url).data.publicUrl
+            : undefined,
+        };
+        const client = new StreamVideoClient({ apiKey, user, tokenProvider });
+        setVideoClient(client);
+      } catch (error) {
+        console.error('❌ Error initializing Video Client:', error);
+        console.error('Video calls will not work. Check network connectivity.');
+      }
     };
 
     initVideoClient();

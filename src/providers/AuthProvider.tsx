@@ -1,4 +1,4 @@
-import {supabase} from '../lib/supabase.js'
+import {supabase} from '../lib/supabase'
 import React ,  {useEffect,PropsWithChildren , createContext, useState, useContext } from 'react'
 import { Session, User } from '@supabase/supabase-js'
 

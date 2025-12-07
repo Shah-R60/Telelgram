@@ -1,8 +1,8 @@
 import { View, Text, FlatList } from 'react-native'
 import React, { useEffect } from 'react'
-import { supabase } from '../../lib/supabase.ts';
-import { useAuth } from '../../providers/AuthProvider.js';
-import UserListItem from '../../components/UserLIstItem.tsx';
+import { supabase } from '../../lib/supabase';
+import { useAuth } from '../../providers/AuthProvider';
+import UserListItem from '../../components/UserLIstItem';
 
 const UserScreen = () => {
     const [Users, setUser] = React.useState([]);
