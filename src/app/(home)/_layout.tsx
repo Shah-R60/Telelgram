@@ -3,7 +3,7 @@ import ChatProvider from '../../providers/chatProvider';
 import { useAuth } from '../../providers/AuthProvider';
 import VideoProvider from '../../providers/VideoProvider';
 import CallProvider from '../../providers/CallProvider';
-// import NotificationsProvider from '../../providers/NotificationProvider';
+import NotificationsProvider from '../../providers/NotificationProvider';
 
 export default function HomeLayout() {
   const { user } = useAuth();
@@ -14,7 +14,7 @@ export default function HomeLayout() {
 
   return (
     <ChatProvider>
-      {/* <NotificationsProvider> */}
+      <NotificationsProvider>
         <VideoProvider>
           <CallProvider>
             <Stack>
@@ -26,7 +26,7 @@ export default function HomeLayout() {
             </Stack>
           </CallProvider>
         </VideoProvider>
-      {/* </NotificationsProvider> */}
+      </NotificationsProvider>
     </ChatProvider>
   );
 }
