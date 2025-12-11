@@ -30,11 +30,21 @@ export default function VideoProvider({ children }: PropsWithChildren) {
             ? supabase.storage.from('avatars').getPublicUrl(profile.avatar_url).data.publicUrl
             : undefined,
         };
-        const client = new StreamVideoClient({ apiKey, user, tokenProvider });
+        
+        // Initialize client with audio-only configuration
+        const client = new StreamVideoClient({ 
+          apiKey, 
+          user, 
+          tokenProvider,
+          options: {
+            logLevel: 'info',
+          }
+        });
+        
         setVideoClient(client);
       } catch (error) {
-        console.error('❌ Error initializing Video Client:', error);
-        console.error('Video calls will not work. Check network connectivity.');
+        console.error('❌ Error initializing Audio Client:', error);
+        console.error('Audio calls will not work. Check network connectivity.');
       }
     };
 

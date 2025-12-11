@@ -49,6 +49,7 @@
         "react-native-permissions",
         {
           "iosPermissions": [
+            "Camera",
             "Microphone"
           ]
         }
@@ -56,19 +57,18 @@
       [
         "expo-build-properties",
         {
-          "android": {
-            "minSdkVersion": 24,
-            "extraMavenRepos": [
-              "$rootDir/../../../node_modules/@notifee/react-native/android/libs"
-            ]
-          }
+      [
+        "react-native-permissions",
+        {
+          "iosPermissions": [
+            "Microphone"
+          ]
         }
-      ],
-      "@stream-io/video-react-native-sdk",
+      ],stream-io/video-react-native-sdk",
       [
         "@config-plugins/react-native-webrtc",
         {
-          "cameraPermission": false,
+          "cameraPermission": "$(PRODUCT_NAME) requires camera access in order to capture and transmit video",
           "microphonePermission": "$(PRODUCT_NAME) requires microphone access in order to capture and transmit audio"
         }
       ],
@@ -77,3 +77,10 @@
     ]
   }
 }
+      [
+        "@config-plugins/react-native-webrtc",
+        {
+          "cameraPermission": false,
+          "microphonePermission": "$(PRODUCT_NAME) requires microphone access in order to capture and transmit audio"
+        }
+      ],
